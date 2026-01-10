@@ -1,5 +1,6 @@
 package com.growfolio.app.domain.model
 
+import com.growfolio.app.domain.model.Stock
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -8,6 +9,7 @@ data class Holding(
     val portfolioId: String,
     val stockSymbol: String,
     val stockName: String? = null,
+    val stock: Stock = Stock(symbol = stockSymbol, name = stockName ?: ""),
     val quantity: Double,
     val averageCostPerShare: Double,
     val currentPricePerShare: Double,

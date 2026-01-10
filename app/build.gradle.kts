@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 android {
@@ -61,6 +62,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation("androidx.compose.material:material-icons-extended")
     
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
@@ -86,6 +88,10 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.truth)
     
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -94,4 +100,25 @@ dependencies {
     
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+koverReport {
+    defaults {
+        filters {
+            includes {
+                packages("com.growfolio.app.presentation.dashboard", "com.growfolio.app.presentation.stocks", "com.growfolio.app.presentation.ai_insights", "com.growfolio.app.presentation.funding", "com.growfolio.app.data.repository")
+            }
+            excludes {
+                classes("*ScreenKt", "*State")
+            }
+        }
+        verify {
+            rule {
+                isEnabled = true
+                bound {
+                    minValue = 80
+                }
+            }
+        }
+    }
 }

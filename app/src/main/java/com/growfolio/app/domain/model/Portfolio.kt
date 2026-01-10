@@ -18,6 +18,7 @@ data class Portfolio(
     val isDefault: Boolean = false,
     val colorHex: String = "#007AFF",
     val iconName: String = "briefcase.fill",
+    val holdings: List<Holding> = emptyList(),
     val createdAt: String,
     val updatedAt: String
 ) {
